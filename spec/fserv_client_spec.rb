@@ -44,8 +44,10 @@ describe Fserv::Client do
     it "should be capable of returning a download from a uploaded file" do
       require 'tempfile'
 
+      contents = "Hello #{Time.now.to_i}"
+
       file = Tempfile.new(Time.now.to_i.to_s)
-      file.write("Hello steve!")
+      file.write(contents)
       file.rewind
 
       res = Fserv::Client.upload(file)
@@ -57,7 +59,9 @@ describe Fserv::Client do
       token_res.attachment_url.should_not be_nil
 
       url = token_res.attachment_url
-      puts url
+      data = RestClient.get url
+
+      data.should == contents
     end
   end
 
