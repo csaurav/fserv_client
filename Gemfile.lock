@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fserv-client (0.1)
+    fserv_client (0.1)
       rest-client
 
 GEM
@@ -31,7 +31,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  fserv-client!
+  fserv_client!
   rake
   rest-client
   rspec
