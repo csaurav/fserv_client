@@ -1,0 +1,1 @@
+require 'fserv/exceptions/client_name_required'
