@@ -1,5 +1,6 @@
 module Fserv
   module Client
+    TIMEOUT = 900000
 
     def self.upload(file, additional_options = {})
       client = additional_options[:client_name] || Fserv.config.client_name
@@ -21,12 +22,12 @@ module Fserv
       base
     end
 
-    def self.post(method, args = {})
-      RestClient.post(Fserv.config.build_address(method), args)
+    def self.post(method, args = {}, headers = {})
+      RestClient::Request.execute(method: :post, url: Fserv.config.build_address(method), payload: args, headers: headers, timeout: TIMEOUT, open_timeout: TIMEOUT)
     end
 
-    def self.get(method, args = {})
-      RestClient.get(Fserv.config.build_address(method), args)
+    def self.get(method, args = {}, headers = {})
+      RestClient::Request.execute(method: :get, url: Fserv.config.build_address(method), payload: args, headers: headers, timeout: TIMEOUT, open_timeout: TIMEOUT)
     end
   end
 end
