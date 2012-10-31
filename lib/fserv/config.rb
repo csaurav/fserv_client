@@ -10,6 +10,8 @@ module Fserv
     attr_accessor :public_host
     attr_accessor :public_port
 
+    attr_accessor :public_ssl
+
     def initialize
       self.host = "localhost"
       self.port = 4000
@@ -23,8 +25,12 @@ module Fserv
       "#{server_address}/#{method}/"
     end
 
+    def http_form
+      self.public_ssl.eql?(true) ? "https" : "http"
+    end
+
     def public_address
-      "http://#{self.public_host || self.host}#{(self.public_port || self.port).nil? ? "" : ":#{(self.public_port || self.port)}"}"
+      "#{self.http_form}://#{self.public_host || self.host}#{(self.public_port || self.port).nil? ? "" : ":#{(self.public_port || self.port)}"}"
     end
 
     def build_public_address(method)
