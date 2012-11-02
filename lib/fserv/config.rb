@@ -30,7 +30,9 @@ module Fserv
     end
 
     def public_address
-      "#{self.http_form}://#{self.public_host || self.host}#{(self.public_port || self.port).nil? ? "" : ":#{(self.public_port || self.port)}"}"
+      return server_address if self.public_host.nil?
+
+      "#{self.http_form}://#{self.public_host}#{self.public_port.nil? ? "" : ":#{self.public_port}"}"
     end
 
     def build_public_address(method)
