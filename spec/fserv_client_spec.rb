@@ -63,7 +63,7 @@ describe Fserv::Client do
 
       data.should == contents
     end
-    
+
     it "should be capable of deleting an uploaded file" do
       require 'tempfile'
 
@@ -74,16 +74,12 @@ describe Fserv::Client do
       file.rewind
 
       res = Fserv::Client.upload(file)
+
       res.success?.should be_true
       res.attachment_token.should_not be_nil
-
-      token_res = Fserv::Client.attachment_token(res.attachment_token)
-      token_res.success?.should be_true
-      token_res.remove_file_url.should_not be_nil
-
-      url = token_res.remove_file_url
-      delete_response = RestClient.delete url
-      delete_response.should be_empty
+      
+      response = Fserv::Client.remove_file(res.attachment_token)
+      response.should be_empty
 
     end
   end

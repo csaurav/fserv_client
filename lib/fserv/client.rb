@@ -22,13 +22,13 @@ module Fserv
       base
     end
 
-    def self.remove_file(file, additional_options = {})
+    def self.remove_file(token, additional_options = {})
       client = additional_options[:client_name] || Fserv.config.client_name
 
       raise Fserv::Exceptions::ClientNameRequired.new("Client not specified") if (client.nil? || client.empty?)
 
-      res = delete("remove_file/#{client}", {:attachment => file})
-      Fserv::Response::UploadResponse.new(res)
+      delete("remove_file/#{client}/#{token}")
+      
     end
     
     def self.post(method, args = {}, headers = {})
