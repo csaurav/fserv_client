@@ -63,6 +63,25 @@ describe Fserv::Client do
 
       data.should == contents
     end
+
+    it "should be capable of deleting an uploaded file" do
+      require 'tempfile'
+
+      contents = "Hello #{Time.now.to_i}"
+
+      file = Tempfile.new(Time.now.to_i.to_s)
+      file.write(contents)
+      file.rewind
+
+      res = Fserv::Client.upload(file)
+
+      res.success?.should be_true
+      res.attachment_token.should_not be_nil
+      
+      response = Fserv::Client.remove_file(res.attachment_token)
+      response.should be_empty
+
+    end
   end
 
 end
