@@ -4,7 +4,7 @@ $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |s|
   s.name        = "fserv_client"
-  s.version     = "0.1"
+  s.version     = "0.2"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Callum Jones", "Sam Winterton"]
   s.email       = ["callum.jones@corpgovrisk.com", "sam.winterton@corpgovrisk.com"]
